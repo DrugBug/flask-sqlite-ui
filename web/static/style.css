@@ -1,0 +1,104 @@
+body, html{
+     height: 100%;
+     font-family: 'Lato', sans-serif;
+}
+ .button {
+     display: block;
+     position: relative;
+     height: 20rem;
+     background-color: lightskyblue;
+     opacity: 1;
+     border-radius: 10px;
+     margin: auto;
+     width: 70%;
+     padding: 10px;
+}
+ .button:hover {
+     opacity: 0.8;
+     background-color: lightskyblue;
+     color: white;
+}
+ .button:focus {
+     opacity: 0.8;
+     background-color: lightskyblue;
+     color: white;
+}
+ input {
+     margin-top: 10px !important;
+     direction: ltr;
+}
+ @-webkit-keyframes animatetop {
+     from {
+        top:-300px;
+         opacity:0
+    }
+     to {
+        top:0;
+         opacity:1
+    }
+}
+ @keyframes animatetop {
+     from {
+        top:-300px;
+         opacity:0
+    }
+     to {
+        top:0;
+         opacity:1
+    }
+}
+ .close {
+     color: white;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+     margin-top: 10px !important;
+}
+ .close:hover, .close:focus {
+     color: #000;
+     text-decoration: none;
+     cursor: pointer;
+}
+ .container {
+     direction: rtl;
+}
+ .container ul{
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     overflow: auto;
+     direction: rtl;
+}
+ ul li{
+     color: #AAAAAA;
+     display: block;
+     position: relative;
+     float: left;
+     width: 100%;
+     height: 50px;
+}
+ .user {
+     font-size: x-large;
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+ .left-float {
+     float: left !important;
+}
+ .right-float {
+     float: right !important;
+}
+ .base {
+     margin-top: 30px;
+     height: 200px;
+}
+ .tracking-button {
+     width: 25%;
+}
+ .vertical-center {
+     margin: 0;
+     position: absolute;
+     top: 50%;
+     -ms-transform: translateY(-50%);
+     transform: translateY(-50%);
+}

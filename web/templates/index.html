@@ -1,0 +1,254 @@
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
+      <title>Cellosign - Gil Halperin</title>
+      <link rel="stylesheet" href="/static/style.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+         integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+         integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+         crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"
+         integrity="sha256-xI/qyl9vpwWFOXz7+x/9WkG5j/SVnSw21viy8fWwbeE=" crossorigin="anonymous"></script>
+      <link href="https://code.jquery.com/jquery-1.12.4.min.js" as="script">
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+   </head>
+   <body>
+      <div class="container">
+         <div class="container base">
+            <div class="col-xs-6 right-float">
+               <button id="register-button" class="button">
+               <span>REGISTER PACKAGE</span>
+               </button>
+            </div>
+            <div class="col-xs-6 left-float vertical-center">
+               <input id="register-dest-address" type="text">
+               <label for="register-dest-address">Destination Address</label>
+               <br>
+               <input id="register-dest-zipcode" type="text">
+               <label for="register-dest-zipcode">Destination Zip Code</label>
+               <br>
+               <input id="register-recipient" type="text">
+               <label for="register-recipient">Recipient Name</label>
+               <br>
+               <select id="register-package-type">
+                 <option value="LETTER">Letter</option>
+                 <option value="PACKAGE">Package</option>
+               </select>
+               <label for="register-package-type">Package Type</label>
+            </div>
+         </div>
+         <div class="container base">
+            <div class="col-xs-6 right-float">
+               <button id="submit-button" class="button">
+               <span>SUBMIT PACKAGE</span>
+               </button>
+            </div>
+            <div class="col-xs-6 left-float vertical-center">
+               <input id="submit-package-id" type="text">
+               <label for="submit-package-id">Package Tracking Number</label>
+               <br>
+               <input id="submit-office-name" type="text">
+               <label for="submit-office-name">Post Office Name</label>
+            </div>
+         </div>
+         <div class="container base">
+            <div class="col-xs-6 right-float">
+               <button id="tracking-button" class="button">
+               <span>PACKAGE TRACKING HISTORY</span>
+               </button>
+            </div>
+            <div class="col-xs-6 left-float vertical-center">
+               <input id="tracking-package-id" type="text">
+               <label for="tracking-package-id">Package Tracking Number</label>
+            </div>
+         </div>
+
+         <h1 style="text-align: center">Helper Tools</h1>
+         <div class="container base">
+            <div class="col-xs-6 right-float">
+               <button id="create-office-button" class="button">
+               <span>CREATE POST OFFICE</span>
+               </button>
+            </div>
+            <div class="col-xs-6 left-float vertical-center">
+               <input id="create-office-address" type="text">
+               <label for="create-office-address">Post Office Address</label>
+               <br>
+               <input id="create-office-zipcode" type="text">
+               <label for="create-office-zipcode">Post Office Zip Code</label>
+               <br>
+               <input id="create-office-name" type="text">
+               <label for="create-office-name">Post Office Name</label>
+               <br>
+            </div>
+         </div>
+
+       <div class="container base">
+         <div class="col-xs-6 right-float">
+            <button id="get-offices-button" class="button">
+            <span>SHOW POST OFFICES</span>
+            </button>
+         </div>
+
+         <div class="col-xs-6 left-float">
+            <button id="get-packages-button" class="button">
+            <span>SHOW PACKAGES</span>
+            </button>
+         </div>
+      </div>
+
+   </body>
+   <script>
+      // AJAX Requests
+        $('#register-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'POST',
+        		url : '/package/register',
+        		data : {
+                  'recipient_name': $('#register-recipient').val(),
+                  'destination_address': $('#register-dest-address').val(),
+                  'destination_zip_code': $('#register-dest-zipcode').val(),
+                  'package_type': $('#register-package-type').val()
+                  },
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);;
+        		    alert(data);
+        		  },
+        		success: function(response) {
+                  let data = JSON.stringify(response);
+                  alert(data);
+                  $('#register-recipient').val('');
+                  $('#register-dest-address').val('');
+                  $('#register-dest-zipcode').val('');
+                  $('#register-package-type').val('');
+        		}
+        	});
+        	return false;
+        });
+
+        $('#submit-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'POST',
+        		url : '/package/submit',
+        		data : {
+                  'tracking_number': $('#submit-package-id').val(),
+                  'post_office_name': $('#submit-office-name').val()
+                  },
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		  },
+        		success: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		}
+        	});
+        	return false;
+        });
+
+        $('#tracking-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'GET',
+        		url : '/package/tracking',
+        		data : {
+                  'tracking_number': $('#tracking-package-id').val()
+                },
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		  },
+        		success: function(response) {
+        		   let data = JSON.stringify(response);
+        		   alert(data);
+        		}
+        	});
+        	return false;
+        });
+
+
+       $('#create-office-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'POST',
+        		url : '/office',
+        		data : {
+                  'name': $('#create-office-name').val(),
+                  'address': $('#create-office-address').val(),
+                  'zip_code': $('#create-office-zipcode').val()
+                  },
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		  },
+        		success: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		    $('#create-office-name').val('');
+                    $('#create-office-address').val('');
+                    $('#create-office-zipcode').val('');
+        		}
+        	});
+        	return false;
+        });
+
+
+      $('#get-offices-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'GET',
+        		url : '/office',
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		  },
+        		success: function(response) {
+        		   let data = JSON.stringify(response);
+        		   alert(data);
+        		}
+        	});
+        	return false;
+        });
+
+
+      $('#get-packages-button').click(function(e) {
+        	e.preventDefault();
+
+      $.ajax({
+        		type: 'GET',
+        		url : '/package',
+        		beforeSend: function() {
+        		},
+        		error: function(response) {
+        		    let data = JSON.stringify(response);
+        		    alert(data);
+        		  },
+        		success: function(response) {
+        		   let data = JSON.stringify(response);
+        		   alert(data);
+        		}
+        	});
+        	return false;
+        });
+   </script>
+</html>
